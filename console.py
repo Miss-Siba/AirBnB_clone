@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-
+import json
 import cmd
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -16,7 +17,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
+        """Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id."""
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -27,13 +29,14 @@ class HBNBCommand(cmd.Cmd):
                 print(instance.id)
             except NameError:
                 print("** class doesn't exist **")
-    
+
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation of an instance based
+        on the class name and id"""
         args = line.split()
         if not args:
             print("** class name missing **")
-        elif len(args)< 2:
+        elif len(args) < 2:
             print("** instance id missing **")
         else:
             class_name = args[0]
@@ -45,10 +48,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             except FileNotFoundError:
                 print("** no instance found **")
-   def save_to_file(self):
-       """saves data to file"""
-       with open ("user_data.json", "w") as json_file:
-           json_dump(self.users, json_file)
+
+    def save_to_file(self):
+        """saves data to file"""
+        with open("user_data.json", "w") as json_file:
+            json.dump(self.users, json_file)
 
 
 if __name__ == '__main__':

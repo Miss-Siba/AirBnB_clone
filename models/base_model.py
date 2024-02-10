@@ -27,19 +27,18 @@ class BaseModel:
         else:
             models.storage.new(self)
 
-    def to_dict(self):
-        """Returns a dictionary of the BaseModel."""
-        return {
-                "id": self.id,
-                "created_at": self.created_at.isoformat(),
-                "updated_at": self.updated_at.isoformat(),
-                "__class__": self.__class__.__name__
-                }
-
     def save(self):
         """Saves the updates"""
         self.updated_at = datetime.now()
         models.storage.save()
+
+    def to_dict(self):
+        """Returns a dictionary of the BaseModel."""
+        copy_dict = self.__dict__.copy()
+        copy_dict["created_at"] = self.updated_at.isoformat()
+        copy_dict["updated_at"] = self.updated_at.isoformat()
+        copy_dict["__class__"] = self.__class__.__name__
+        return copy_dict
 
     def __str__(self):
         """Prints the BaseModel instance."""
