@@ -16,11 +16,11 @@ class BaseModel:
         """
         tform = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
         if len(kwargs) != 0:
             for c, u in kwargs.items():
-                if c == "created_cat" or c == "updated_at":
+                if c == "created_at" or c == "updated_at":
                     self.__dict__[c] = datetime.strptime(u, tform)
                 else:
                     self.__dict__[c] = u
@@ -29,7 +29,7 @@ class BaseModel:
 
     def save(self):
         """Saves the updates"""
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
