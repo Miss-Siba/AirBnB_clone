@@ -2,6 +2,7 @@
 """Serializes instance to a JSON file and deserializes JSON
 file to instances"""
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -19,10 +20,12 @@ class FileStorage:
         FileStorage.__objects["{}.{}".format(ocname, obj.id)] = obj
 
     def save(self):
+        """Serialize __objects to the JSON file __file_path."""
         with open("file.json", "w") as file:
             json.dump(self.__objects, file)
 
     def reload(self):
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
             with open("file.json", "r") as file:
                 self.__objects = json.load(file)
