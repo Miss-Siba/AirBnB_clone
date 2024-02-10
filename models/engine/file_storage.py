@@ -18,12 +18,12 @@ class FileStorage:
         FileStorage.__objects["{}.{}".format(ocname, obj.id)] = obj
     
     def save(self):
-        with open ("file.json", "w") as file
-        json.dump(self.__objects, file)
+        with open ("file.json", "w") as file:
+            json.dump(self.__objects, file)
     
     def reload(self):
         try:
-            with open ("file.json", "r") as file
-             self.__objects = json.load(file)
+            with open ("file.json", "r") as file:
+                self.__objects = json.load(file)
         except FileNotFoundError:
             pass
