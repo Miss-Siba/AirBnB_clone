@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 class Place(BaseModel):
     """Represents a place.
     Attributes:
-        city_id: city id 
+        city_id: city id
         user_id: user id
         name: name of the place
         description: description of the place
@@ -16,7 +16,7 @@ class Place(BaseModel):
         price_by_night: rate per night
         latitude: float - 0.0
         longitude: float - 0.0
-        amenity_ids: list of string - list of Amenity.id 
+        amenity_ids: list of string - list of Amenity.id
     """
     city_id = ""
     user_id = ""
