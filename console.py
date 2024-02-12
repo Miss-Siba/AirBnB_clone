@@ -133,7 +133,8 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            del objdict["{}.{}".format(argl[0], argl[1])]
+            objdict = storage.all()
+            del objdict["{}.{}".format(args[0], args[1])]
             storage.save()
 
     def do_all(self, line):
