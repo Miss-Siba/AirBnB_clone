@@ -134,8 +134,12 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             objdict = storage.all()
-            del objdict["{}.{}".format(args[0], args[1])]
-            storage.save()
+            key = "{}.{}".format(args[0], args[1])
+            if key in objdict:
+                del objdict[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, line):
         """"Prints all string representation of all instances
