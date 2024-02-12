@@ -2,6 +2,7 @@
 """ Module for the console."""
 import cmd
 import re
+import uuid
 from shlex import split
 from models.base_model import BaseModel
 from models import storage
@@ -35,8 +36,36 @@ def parse_string(line):
 class HBNBCommand(cmd.Cmd):
     """This contains the entry point of the command interpreter"""
     prompt = "(hbnb)"
-    HBNBC_classes = ["BaseModel", "User", "Amenity",
-                     "Place", "Review", "State", "City"]
+    __classes = {
+            "BaseModel",
+            "User",
+            "Amenity",
+            "Place",
+            "Review",
+            "State",
+            "City"
+    }
+
+    def default(self, line):
+        """Default behavior for cmd module when input is invalid"""
+        argdict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        match = re.search(r"\.", line)
+        if match is not None:
+            args = [line[:match.span()[0]], line[match.span()[1]:]]
+            match = re.search(r"\((.*?)\)", args[1])
+            if match is not None:
+                command = [args[1][:match.span()[0]], match.group()[1:-1]]
+                if command[0] in argdict.keys():
+                    call = "{} {}".format(args[0], command[1])
+                    return argdict[command[0]](call)
+        print("*** Unknown syntax: {}".format(line))
+        return False
 
     def emptyline(self):
         """Do nothing when an empty line is encountered."""
@@ -56,14 +85,22 @@ class HBNBCommand(cmd.Cmd):
         args = parse_string(line)
         if not args:
             print("** class name missing **")
-        else:
-            class_name = args[0]
-            try:
-                instance = BaseModel()
+            return
+
+        class_name = args[0]
+        try:
+            if class_name not in self.__classes:
+                print("** class doesn't exist **")
+                return
+            class_type = globals().get(class_name)
+            if class_type:
+                instance = class_type()
                 instance.save()
                 print(instance.id)
-            except NameError:
+            else:
                 print("** class doesn't exist **")
+        except Exception as e:
+            print(f"** Error creating instance: {e} **")
 
     def do_show(self, line):
         """Prints the string representation of an instance based
