@@ -15,7 +15,8 @@ from models.city import City
 
 
 def parse_string(line):
-    """Parses string. """
+    """Parses string
+    """
     curly_braces = re.search(r"\{(.*?)\}", line)
     brackets = re.search(r"\[(.*?)\]", line)
     if curly_braces is None:
@@ -34,7 +35,10 @@ def parse_string(line):
 
 
 class HBNBCommand(cmd.Cmd):
-    """This contains the entry point of the command interpreter"""
+    """This contains the entry point of the command interpreter
+    Attributes:
+        prompt (str): The command prompt.
+    """
     prompt = "(hbnb)"
     __classes = {
             "BaseModel",
