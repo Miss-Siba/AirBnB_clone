@@ -43,6 +43,9 @@ section.filters button:hover {
 	float: left;
 
 }
+h2 {
+    font-size: 16px;
+}
 h3 {
 	font-weight: 600;
 	margin: 0px;
@@ -61,4 +64,4 @@ h4 {
 	background-color: #FAFAFA;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
-
+}
