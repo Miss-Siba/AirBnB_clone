@@ -4,11 +4,10 @@ header {
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC;
 }
-.logo-container {
-	width: 50px;
-	height: 50px;
-	background-image: url('AirBnB_clone/web_static/images/logo.png');
-	background-size: contain;
+header.logo-container {
+	width: 142px;
+	height: 60px;
+	background-image: url("../images/logo.png");
 	background-repeat: no-repeat;
-	margin-left: 20px;
+	padding-left: 20px;
 }
